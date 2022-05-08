@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
-use App\Models\Article;
 
 class ArticleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +22,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $article=Article::orderBy("id","desc")->paginate(10);
+        return view('article.index',compact('article'));
     }
 
     /**
@@ -25,7 +33,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('article.create');
     }
 
     /**
@@ -36,7 +44,13 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        //
+       $article=new Article();
+       $article->title=$request->title;
+       $article->description=$request->description;
+       $article->user_id=Auth::id();
+       $article->save();
+      return redirect()->route('article.index');
+
     }
 
     /**
@@ -47,7 +61,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return view('article.show',compact('article'));
     }
 
     /**
@@ -81,6 +95,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        // delete
+        $article->delete();
+        return redirect()->route('article.index');
     }
 }
