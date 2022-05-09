@@ -70,9 +70,10 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit($id)
     {
-        //
+        $article=Article::find($id);
+        return view('article.edit',compact('article'));
     }
 
     /**
@@ -84,7 +85,13 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        //
+           $article->title=$request->title;
+           $article->description=$request->description;
+           $article->user_id=Auth::id();
+           $article->update();
+           
+          return redirect()->route('article.index');
+
     }
 
     /**

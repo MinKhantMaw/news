@@ -46,12 +46,13 @@
                                         <td>{{ $list->user_id }}</td>
                                         <td class="d-flex">
                                             <a href="{{ route('article.show', $list->id) }}"
-                                                class="text-decoration-none btn btn-primary ">Show</a>
+                                                class="text-decoration-none btn btn-primary btn-sm">Show</a>
                                             <form action="{{ route('article.destroy', $list->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                               <button type="submit" class="btn btn-danger ml-2">Delete</button>
+                                               <button type="submit" class="btn btn-danger btn-sm ml-2">Delete</button>
                                             </form>
+                                            <a href="{{route('article.edit',$list->id)}}" class="btn btn-warning btn-sm">Edit</a>
                                         </td>
                                     </tr>
                                 </tbody>
