@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
@@ -89,7 +90,7 @@ class ArticleController extends Controller
            $article->description=$request->description;
            $article->user_id=Auth::id();
            $article->update();
-           
+
           return redirect()->route('article.index');
 
     }
@@ -105,5 +106,12 @@ class ArticleController extends Controller
         // delete
         $article->delete();
         return redirect()->route('article.index');
+    }
+
+    public function search(Request $request)
+    {
+        $sarchKey=$request->search;
+        $article=Article::where('title','like','%'.$sarchKey.'%')->orWhere('description','like','%'.$sarchKey.'%')->paginate(10);
+        return view('article.index',compact('article'));
     }
 }

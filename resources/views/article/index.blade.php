@@ -19,14 +19,16 @@
                                 {{ $article->links() }}
                             </div>
                             <div class="">
-                                <form action="" method="POST">
+                                <form action="{{ route('search-article') }}" method="POST">
+                                    @csrf
                                     <div class="form-inline mb-2">
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="search" class="form-control">
                                         <button class="btn btn-primary">Search</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
+
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -50,9 +52,10 @@
                                             <form action="{{ route('article.destroy', $list->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                               <button type="submit" class="btn btn-danger btn-sm ml-2">Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm ml-2">Delete</button>
                                             </form>
-                                            <a href="{{route('article.edit',$list->id)}}" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="{{ route('article.edit', $list->id) }}"
+                                                class="btn btn-warning btn-sm">Edit</a>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -23,3 +23,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('article', ArticleController::class);
+Route::post('search-article','ArticleController@search')->name('search-article');
