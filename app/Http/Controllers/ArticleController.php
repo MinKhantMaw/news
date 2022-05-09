@@ -112,6 +112,7 @@ class ArticleController extends Controller
     {
         $sarchKey=$request->search;
         $article=Article::where('title','like','%'.$sarchKey.'%')->orWhere('description','like','%'.$sarchKey.'%')->paginate(10);
+        $article->appends($request->all());
         return view('article.index',compact('article'));
     }
 }

@@ -19,7 +19,7 @@
                                 {{ $article->links() }}
                             </div>
                             <div class="">
-                                <form action="{{ route('search-article') }}" method="POST">
+                                <form action="{{ route('search-article') }}" method="GET">
                                     @csrf
                                     <div class="form-inline mb-2">
                                         <input type="text" name="search" class="form-control">
